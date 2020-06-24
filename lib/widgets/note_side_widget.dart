@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_notes/screens/main_screen.dart';
 import 'package:youtube_notes/widgets/side_bar.dart';
 
 class NoteSideWidget extends StatefulWidget {
+  
+  MainScreen mainScreen;
+
+  NoteSideWidget(this.mainScreen);
+  
   @override
   _NoteSideWidgetState createState() => _NoteSideWidgetState();
+  
 }
 
 class _NoteSideWidgetState extends State<NoteSideWidget> {
@@ -17,7 +24,7 @@ class _NoteSideWidgetState extends State<NoteSideWidget> {
       color: Color(0xfffffdd0),
       child: Row(
         children: [
-          SideBar(controller),
+          SideBar(controller, widget.mainScreen),
           Expanded(
             child: TextFormField(
               controller: controller,
@@ -30,10 +37,10 @@ class _NoteSideWidgetState extends State<NoteSideWidget> {
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 filled: true,
-                hintText: 'type something\ntop button for new note\nbottom button to donwload note\ngreen button for new video\nblack button for dragging',
+                hintText: 'type something\ntop button for new note\nbottom button to donwload note\ngreen button for new video\nblack button for dragging\n\n\n\nthis is a beta 🤖 if anything is glitchy try tapping the black button or the screen a few time 😁',
                 hintStyle: TextStyle(
                   fontSize: 16,
-                  color: Colors.black87,
+                  color: Colors.black38,
                 ),
               ),
             ),

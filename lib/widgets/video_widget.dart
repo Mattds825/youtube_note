@@ -1,18 +1,21 @@
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:youtube_notes/screens/main_screen.dart';
 
 class VideoWidget extends StatefulWidget {
   String url;
+  String ytLink = 'https://www.youtube.com/embed/IyFZznAk69U/';
+  bool darkMode = false;
+  MainScreen mainScreen;
 
-  VideoWidget(this.url);
+  VideoWidget(this.url, this.mainScreen);
 
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-  String ytLink = 'http://www.youtube.com/embed/IyFZznAk69U/';
   static ValueKey key = ValueKey('key');
   bool _isHtml = false;
   bool _isMarkdown = false;
@@ -29,7 +32,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
     webView = EasyWebView(
-      src: ytLink,
+      src: widget.ytLink,
       onLoaded: () {
         //print('$key3: Loaded: $src3');
       },
@@ -44,8 +47,24 @@ class _VideoWidgetState extends State<VideoWidget> {
   Widget build(BuildContext context) {
     // print(ytLink);
     return Scaffold(
+      backgroundColor: (widget.darkMode) ? Colors.grey[850] : Colors.white,
       body: Stack(
         children: <Widget>[
+          // Positioned(
+          //   right: 30.0,
+          //   top: 30.0,
+          //   child: GestureDetector(
+          //     child: Text(
+          //       'darkMode',
+          //     ),
+          //     onTap: (){setState(() {
+          //       widget.mainScreen.state.setState(() {
+          //         widget.darkMode = true;
+          //         widget.mainScreen.darkMode = true;
+          //       });
+          //     });},
+          //   ),
+          // ),
           Row(
             children: <Widget>[
               Expanded(
@@ -53,7 +72,8 @@ class _VideoWidgetState extends State<VideoWidget> {
                 child: Row(
                   children: [
                     Container(
-                      width: 500,
+                      height: 360,
+                      width: 520,
                       child: webView,
                     ),
                     SizedBox(
@@ -137,9 +157,10 @@ class _VideoWidgetState extends State<VideoWidget> {
               onTap: () {
                 // webView.src = controller.text;
                 setState(() {
-                  ytLink = 'http://www.youtube.com/embed/${controller.text}';
+                  widget.ytLink =
+                      'https://www.youtube.com/embed/${controller.text}';
                   webView = EasyWebView(
-                    src: ytLink,
+                    src: widget.ytLink,
                     onLoaded: () {
                       //print('$key3: Loaded: $src3');
                     },

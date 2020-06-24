@@ -7,9 +7,13 @@ import 'package:youtube_notes/widgets/video_side_widget.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
+  VideoSideWidget videoSideWidget;
+  bool darkMode = false;
+
+  _MainScreenState state = _MainScreenState();
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _MainScreenState createState() => state;
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -18,7 +22,12 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    widget.videoSideWidget = VideoSideWidget(
+      height: height,
+      mainScreen: widget,
+    );
     return Scaffold(
+      backgroundColor: (widget.darkMode)?Colors.grey[850]:Colors.white,
       body: Center(
         child: Container(
           width: width,
@@ -26,18 +35,16 @@ class _MainScreenState extends State<MainScreen> {
           child: Row(
             children: [
               ResponsiveUtil(
-                child: NoteSideWidget(),
+                child: NoteSideWidget(widget),
               ),
               Expanded(
-                child: 
-                
-                //VideoSideWidget(height: height),
-                
-                Stack(
+                child:
+
+                    //VideoSideWidget(height: height),
+
+                    Stack(
                   children: [
-                    DragItem(
-                      VideoSideWidget(height: height),
-                    ),
+                    DragItem(widget.videoSideWidget),
                   ],
                 ),
               ),

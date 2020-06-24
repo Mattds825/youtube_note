@@ -5,11 +5,15 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:html' as html;
 
+import 'package:youtube_notes/screens/main_screen.dart';
+
 class SideBar extends StatelessWidget {
 
   TextEditingController controller;
 
-  SideBar(this.controller);
+  MainScreen mainScreen;
+
+  SideBar(this.controller, this.mainScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,7 @@ class SideBar extends StatelessWidget {
   }
 
   _downloadFile() {
-    final text = controller.text;
+    final text = '${controller.text}\n\n\n\n\nvideo link: ${mainScreen.videoSideWidget.videoWidget.ytLink}';
 
 // prepare
     final bytes = utf8.encode(text);
@@ -52,7 +56,7 @@ class SideBar extends StatelessWidget {
     final anchor = html.document.createElement('a') as html.AnchorElement
       ..href = url
       ..style.display = 'none'
-      ..download = 'some_name.txt';
+      ..download = 'youtube_note.txt';
     html.document.body.children.add(anchor);
 
 // download
